@@ -2,6 +2,8 @@ package com.pss.model;
 
 import java.time.LocalTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
@@ -22,9 +24,11 @@ public class Flight {
 	private Double distance;
 
 	@Transient
+	@JsonIgnore
 	private String timeOfDeparture;
 
 	@Transient
+	@JsonIgnore
 	private String timeOfArrival;
 
 	private LocalTime departureTime;

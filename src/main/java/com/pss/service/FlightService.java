@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pss.dao.FlightRepo;
+import com.pss.model.Airport;
 import com.pss.model.Flight;
 
 @Service
@@ -66,6 +67,10 @@ public class FlightService {
 
 	public List<Flight> getAllFlight() {
 		return flightRepo.findAll();
+	}
+
+	public List<Flight> getFlightBySourceAndDestination(Airport source, Airport destination) {
+		return flightRepo.findBySourceAndDestination(source, destination);
 	}
 
 }
