@@ -14,4 +14,5 @@ public interface FlightRepo extends JpaRepository<Flight, Long> {
 
 	@Query("SELECT f FROM Flight f WHERE f.source = ?1 and f.destination = ?2")
 	public List<Flight> findBySourceAndDestination(Airport source, Airport destination);
+
 }
