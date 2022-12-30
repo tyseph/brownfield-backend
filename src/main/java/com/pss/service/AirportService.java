@@ -16,12 +16,15 @@ public class AirportService {
 	private AirportRepo airportRepo;
 
 	// Admin Services
+	// Add Airport
 	public String addAirport(Airport newAirport) {
 		airportRepo.saveAndFlush(newAirport);
 
 		return "Airport added.";
 	}
 
+	// Admin Service
+	// Remove Airport by code
 	public String removeAirport(String code) {
 		if (!airportRepo.existsById(code)) {
 			return "Airport doesn't exist";
@@ -38,6 +41,8 @@ public class AirportService {
 		return airportRepo.findById(code);
 	}
 
+	// Admin Service
+	// Get all airports
 	public List<Airport> getAllAirports() {
 		return airportRepo.findAll();
 	}

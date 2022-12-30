@@ -3,8 +3,6 @@ package com.pss.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
-// THISB IS THE CHANGE
-
 @Entity
 public class Airport {
 
