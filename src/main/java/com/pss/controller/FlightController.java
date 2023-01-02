@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,12 @@ public class FlightController {
 	@PostMapping("/addFlight")
 	public Flight addFlight(@RequestBody Flight newFlight) {
 		return flightService.addFlight(newFlight);
+	}
+
+	// Admin remove flight
+	@DeleteMapping("/removeFlight/{flightId}")
+	public String removeFlight(@PathVariable("flightId") Long flightId) {
+		return flightService.removeFlight(flightId);
 	}
 
 	// Admin can edit flight
