@@ -82,6 +82,17 @@ public class FlightService {
 	}
 
 	// Admin Service
+	// Delete flight by flight Id
+	public String removeFlight(Long flightId) {
+		if (!flightRepo.existsById(flightId)) {
+			return "Flight doesn't exist";
+		}
+
+		flightRepo.deleteById(flightId);
+		return "Flight removed successfully";
+	}
+
+	// Admin Service
 	// Edit Flight
 	public Flight editFlight(Long flightId, Flight updatedFlight) {
 		if (!flightRepo.existsById(flightId)) {
@@ -136,20 +147,17 @@ public class FlightService {
 	// Get flight by source, destination, date and no. of passenger
 	public List<Flight> searchFlight(SearchRequest searchRequest) {
 
-		List<Flight> flights = flightRepo.findBySourceAndDestination(searchRequest.getSource(),
-				searchRequest.getDestination());
+		return flightRepo.findBySourceAndDestination(searchRequest.getSource(), searchRequest.getDestination()).stream()
+				.filter((flight) -> {
+					Integer passengerCount = bookFlightRepo.getPassengerCount(flight.getFlightId(),
+							searchRequest.getDateOfTravelling());
 
-		for (Flight flight : flights) {
-			System.out.println(
-					bookFlightRepo.getPassengerCount(flight.getFlightId(), searchRequest.getDateOfTravelling()));
-		}
+					if (passengerCount == null) {
+						passengerCount = 0;
+					}
+					return passengerCount + searchRequest.getNoOfPassenger() <= 100;
+				}).toList();
 
-		flights = flights.stream().filter(
-				(flight) -> bookFlightRepo.getPassengerCount(flight.getFlightId(), searchRequest.getDateOfTravelling())
-						+ searchRequest.getNoOfPassenger() <= 100)
-				.toList();
-
-		return flights;
 	}
 
 }
